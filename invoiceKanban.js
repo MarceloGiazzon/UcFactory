@@ -30,7 +30,10 @@
 		COLUMNS.forEach(function(c) { byStatus[c] = []; });
 		for (var i = 0; i < invoices.length; i++)
 		{
-			var s = invoices[i].Status;
+			// InvoiceStatus is a fixed-length GX Character(15), so the raw JSON
+			// value arrives right-padded with spaces ("Paid           ") - trim
+			// before matching against the column keys.
+			var s = (invoices[i].Status || '').trim();
 			if (byStatus[s]) byStatus[s].push(invoices[i]);
 		}
 		console.log('invoiceKanban (external GitHub js) || column counts: ' + COLUMNS.map(function(c){return c+'='+byStatus[c].length;}).join(', '));
