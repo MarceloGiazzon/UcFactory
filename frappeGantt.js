@@ -9,7 +9,7 @@
 		{
 			el = document.createElement('div');
 			el.id = 'pxtg-viz';
-			el.style.cssText = 'margin-top:16px;width:900px;max-width:97vw;min-height:60px;';
+			el.style.cssText = 'margin-top:16px;width:1200px;max-width:97vw;min-height:60px;overflow-x:auto;';
 			var pxtgAnchor = document.querySelector(".pxtg-box");
 			(pxtgAnchor ? pxtgAnchor.parentNode : document.body).appendChild(el);
 		}
