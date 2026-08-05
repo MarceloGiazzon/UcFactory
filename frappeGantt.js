@@ -10,7 +10,8 @@
 			el = document.createElement('div');
 			el.id = 'pxtg-viz';
 			el.style.cssText = 'margin-top:16px;width:900px;max-width:97vw;min-height:60px;';
-			document.body.appendChild(el);
+			var pxtgAnchor = document.querySelector(".pxtg-box");
+			(pxtgAnchor ? pxtgAnchor.parentNode : document.body).appendChild(el);
 		}
 		el.innerHTML = '<svg id="pxtg-gantt-svg"></svg>';
 		return el;

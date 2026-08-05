@@ -10,7 +10,8 @@
 			el = document.createElement('div');
 			el.id = 'pxtg-viz';
 			el.style.cssText = 'margin-top:16px;width:760px;height:420px;max-width:95vw;position:relative;background:#1e2530;border-radius:8px;font-family:Arial,sans-serif;';
-			document.body.appendChild(el);
+			var pxtgAnchor = document.querySelector(".pxtg-box");
+			(pxtgAnchor ? pxtgAnchor.parentNode : document.body).appendChild(el);
 		}
 		el.innerHTML = '';
 		return el;
