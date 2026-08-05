@@ -59,7 +59,7 @@
 						{ title: 'Name', field: 'Name', headerFilter: true },
 						{ title: 'Category', field: 'Category', headerFilter: true },
 						{ title: 'Price', field: 'Price', formatter: 'money', formatterParams: { symbol: '$' }, sorter: 'number' },
-						{ title: 'Stock', field: 'Stock', sorter: 'number' },
+						{ title: 'Stock', field: 'Stock', sorter: 'number', formatter: function(cell) { return Math.round(cell.getValue()); } },
 						{ title: 'Active', field: 'Active', formatter: 'tickCross' }
 					]
 				});

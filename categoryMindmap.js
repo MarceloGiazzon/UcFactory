@@ -28,10 +28,14 @@
 		document.head.appendChild(s);
 	}
 
-	function loadAll(urls, cb)
+	// Dynamically-created <script> tags default to async=true, so loading
+	// multiple interdependent CDN bundles via a parallel forEach does not
+	// guarantee execution order (markmap-view's UMD footer references a bare
+	// `d3` global that must already exist). Chain them strictly sequentially.
+	function loadChain(urls, cb)
 	{
-		var remaining = urls.length;
-		urls.forEach(function(u) { pxtgLoadScript(u, function() { if (--remaining === 0) cb(); }); });
+		if (urls.length === 0) { cb(); return; }
+		pxtgLoadScript(urls[0], function() { loadChain(urls.slice(1), cb); });
 	}
 
 	// UC93 MarkmapMindmap - real Category -> Product hierarchy built from the
@@ -56,7 +60,7 @@
 			byCategory[cat].forEach(function(name) { md += '- ' + name + '\n'; });
 		});
 
-		loadAll([
+		loadChain([
 			'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js',
 			'https://cdn.jsdelivr.net/npm/markmap-lib@0.15/dist/browser/index.js',
 			'https://cdn.jsdelivr.net/npm/markmap-view@0.15/dist/browser/index.js'

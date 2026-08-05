@@ -29,14 +29,21 @@
 	}
 
 	// UC54 MermaidDiagrams - real invoice-status pipeline with real per-status
-	// counts (reuses BuildInvoiceKanban's Columns, already proven correct).
+	// counts, aggregated client-side from BuildInvoiceKanban's raw Invoices
+	// array (same {Number,Status,Total} rows invoiceKanban.js consumes -
+	// Status is a fixed-length Character(15), so trim before counting).
 	window.PXTG_Handlers['statusflow'] = function(pData)
 	{
-		var columns = (pData && pData.Columns) ? pData.Columns : [];
-		console.log('statusFlow (external GitHub js) || columns received: ' + columns.length);
+		var invoices = (pData && pData.Invoices) ? pData.Invoices : [];
+		console.log('statusFlow (external GitHub js) || invoices received: ' + invoices.length);
 
 		var byStatus = {};
-		columns.forEach(function(c) { byStatus[c.Status] = c.Count; });
+		invoices.forEach(function(inv)
+		{
+			var s = (inv.Status || '').trim();
+			byStatus[s] = (byStatus[s] || 0) + 1;
+		});
+		console.log('statusFlow (external GitHub js) || status counts: ' + JSON.stringify(byStatus));
 
 		var def = 'flowchart LR\n'
 			+ 'Draft["Draft (' + (byStatus['Draft'] || 0) + ')"] --> Pending["Pending (' + (byStatus['Pending'] || 0) + ')"]\n'
@@ -58,6 +65,6 @@
 			catch (e) { console.error('statusFlow (external GitHub js) || render error: ' + e.message); }
 		});
 
-		return { Type: 'Rendered', Statuses: columns.length };
+		return { Type: 'Rendered', Statuses: Object.keys(byStatus).length };
 	}
 })();
