@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bluetooth Com</title>
+  <link rel="stylesheet" href="bluetoothCom.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>Bluetooth Com</h1>
+      <p class="app__subtitle">Web Bluetooth test console &mdash; version 1</p>
+    </header>
+
+    <section class="panel">
+      <h2 class="panel__title">Support</h2>
+      <p id="support" class="status status--unknown">Checking browser support&hellip;</p>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel__title">Actions</h2>
+      <div class="actions">
+        <button id="btnPermission" type="button" class="btn btn--primary">
+          Allow Bluetooth access
+        </button>
+        <button id="btnList" type="button" class="btn">
+          List paired devices
+        </button>
+        <button id="btnClearLog" type="button" class="btn btn--ghost">
+          Clear log
+        </button>
+      </div>
+      <p class="hint">
+        &ldquo;Allow Bluetooth access&rdquo; opens the browser chooser so you can grant permission
+        to a device. Granted devices then show up under &ldquo;List paired devices&rdquo;.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel__title">Known devices</h2>
+      <ul id="deviceList" class="devices">
+        <li class="devices__empty">No devices listed yet.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel__title">
+        Log
+        <span id="logCount" class="badge">0</span>
+      </h2>
+      <form class="log-form" onsubmit="return false;">
+        <label class="log-form__label" for="logBox">Process log</label>
+        <textarea id="logBox" class="log-form__text" rows="16" readonly
+                  spellcheck="false" wrap="off"></textarea>
+      </form>
+    </section>
+  </main>
+
+  <script src="bluetoothCom.js"></script>
+</body>
+</html>
