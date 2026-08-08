@@ -10,7 +10,7 @@
   <main class="app">
     <header class="app__header">
       <h1>Bluetooth Com</h1>
-      <p class="app__subtitle">Web Bluetooth test console &mdash; version 1</p>
+      <p class="app__subtitle">Web Bluetooth / Web Serial test console &mdash; version 3</p>
     </header>
 
     <section class="panel">
@@ -42,6 +42,53 @@
       <ul id="deviceList" class="devices">
         <li class="devices__empty">No devices listed yet.</li>
       </ul>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel__title">
+        Printer
+        <span id="printerState" class="badge">no printer</span>
+      </h2>
+      <div class="actions">
+        <button id="btnPrint" type="button" class="btn btn--primary">
+          Print text
+        </button>
+        <button id="btnFeed" type="button" class="btn">
+          Feed &amp; cut
+        </button>
+        <button id="btnPrinterDisconnect" type="button" class="btn btn--ghost">
+          Disconnect printer
+        </button>
+        <button id="btnConnectBle" type="button" class="btn btn--ghost">
+          Use a BLE printer instead
+        </button>
+        <button id="btnForgetPrinter" type="button" class="btn btn--ghost">
+          Forget saved printer
+        </button>
+      </div>
+      <form class="log-form" onsubmit="return false;">
+        <label class="log-form__label" for="printText">Text to send</label>
+        <textarea id="printText" class="log-form__text" rows="6"
+                  spellcheck="false">Bluetooth Com
+------------------------
+Prueba de impresión
+Acentos: áéíóú ÁÉÍÓÚ ñÑ ¿? ¡!
+------------------------
+</textarea>
+      </form>
+      <p class="hint">
+        The first print opens the serial port chooser &mdash; pick the
+        &ldquo;Standard Serial over Bluetooth link&rdquo; entry for the printer. The grant
+        survives reloads on its own, so F5 does not send you back to the chooser and no
+        flags are needed. Use &ldquo;Forget saved printer&rdquo; to revoke it and pick
+        another.
+      </p>
+      <p class="hint">
+        A Bluetooth <em>Classic</em> (SPP) printer is invisible to Web Bluetooth and must
+        go through this serial path. &ldquo;Use a BLE printer instead&rdquo; is only for
+        printers that expose a GATT service &mdash; and reconnecting to one after a reload
+        does need a Chrome flag.
+      </p>
     </section>
 
     <section class="panel">
